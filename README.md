@@ -2,13 +2,6 @@
 
 > 从零搭建一个多 Agent 协作的小红书爆款笔记生成系统：用户上传图片 + 一句话意图 → 生成完整笔记报告（SEO 标题、正文、标签、图片顺序、每张图片的编辑方案）
 
-## 技术栈
-
-- **Web**: FastAPI + Uvicorn
-- **AI 编排**: CrewAI（智能体/任务/流程 YAML + Python）
-- **持久化**: SQLAlchemy 2.0 异步（OceanBase/MySQL 兼容）、Alembic 迁移、本地文件客户端
-- **安全**: X-API-Key 鉴权、SlowAPI 限流
-- **可观测**: structlog 结构化日志、Prometheus 指标、Request ID 贯穿
 
 ## 项目架构
 
