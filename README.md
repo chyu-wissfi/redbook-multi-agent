@@ -153,45 +153,11 @@ deploy/                  # docker、k8s、grafana
 | APP\_ENV                      | development / staging / production | 否        |
 | APP\_LOG\_LEVEL               | DEBUG / INFO / WARNING / ERROR     | 否        |
 | APP\_PORT                     | 应用服务端口（默认 8072）                    | 否        |
-| APP\_DATABASE\_URL            | 数据库连接串                             | 生产必填     |
-| APP\_SECRET\_KEY              | 签名/会话密钥                            | 生产必填     |
-| APP\_API\_KEYS                | 合法 API Key，逗号分隔                    | 生产建议配置   |
 | APP\_XHS\_MAX\_IMAGES         | 小红书笔记单次请求最大图片数                     | 否，默认 20  |
 | APP\_CREW\_EXECUTION\_TIMEOUT | CrewAI 单阶段执行超时（秒）                  | 否，默认 600 |
 
 完整项见 `.env.example`。
 
-## 测试
-
-```bash
-# 从项目根目录执行，PYTHONPATH 已由 pyproject.toml 配置
-pytest tests/ -v
-```
-
-### 小红书爆款笔记集成测试
-
-- **Python 版（ASGITransport 进程内调用）**：
-  ```bash
-  pytest tests/integration/test_xhs_note.py -v
-  ```
-  - 使用 `tests/integration/` 目录下的 4 张测试图片：\
-    `20260202161329_150_6.jpg`、`20260202161331_151_6.jpg`、`20260202161332_152_6.jpg`、`20260202161333_153_6.jpg`
-  - `idea_text` 固定为：`我想分享最近开始用地中海饮食减脂`
-  - 调用 `POST /api/v1/xhs/notes/report`，断言返回结构化报告字段齐全。
-- **Shell 版（curl 调用真实服务）**：
-  ```bash
-  # 1. 先在一个终端启动服务（示例）
-  PYTHONPATH=src python -m app
-
-  # 2. 另一个终端执行 shell 集成测试脚本
-  chmod +x tests/integration/xhs_note_curl.sh
-  APP_API_KEY=your-key ./tests/integration/xhs_note_curl.sh
-  ```
-  - 默认请求地址：`http://127.0.0.1:8072`（与 `APP_PORT` 一致，可通过 `XHS_BASE_URL` 覆盖）
-  - Header 中携带：`X-API-Key: $APP_API_KEY`
-  - 表单字段：
-    - `idea_text=我想分享最近开始用地中海饮食减脂`
-    - `images=@20260202161329_150_6.jpg`（共 4 张，多次 `images` 字段上传）
 
 ## 文档资料
 
