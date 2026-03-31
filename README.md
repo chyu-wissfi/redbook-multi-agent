@@ -193,12 +193,6 @@ pytest tests/ -v
     - `idea_text=我想分享最近开始用地中海饮食减脂`
     - `images=@20260202161329_150_6.jpg`（共 4 张，多次 `images` 字段上传）
 
-## 部署
-
-- **Docker**: `deploy/docker/Dockerfile`，多阶段构建、非 root 用户
-- **K8s**: `deploy/k8s/deployment.yaml`，liveness/readiness 使用 `/health/live`、`/health/ready`
-- 敏感配置使用 Secret，非敏感使用 ConfigMap，参见 `deploy/k8s/configmap.example.yaml`
-
 ## 文档资料
 
 | 文档                            | 说明                              |
